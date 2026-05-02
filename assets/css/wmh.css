@@ -1,0 +1,158 @@
+/* wp-modern-homepage — CSS variables for dark/light theme */
+
+:root {
+  --bg:        #ffffff;
+  --bg-card:   #f5f5f5;
+  --text:      #1a1a1a;
+  --text-muted:#555555;
+  --accent:    #e63946;
+  --border:    #e0e0e0;
+  --header-bg: #ffffff;
+  --shadow:    0 2px 8px rgba(0,0,0,.08);
+}
+
+[data-theme="dark"] {
+  --bg:        #121212;
+  --bg-card:   #1e1e1e;
+  --text:      #f0f0f0;
+  --text-muted:#aaaaaa;
+  --accent:    #e63946;
+  --border:    #2e2e2e;
+  --header-bg: #1a1a1a;
+  --shadow:    0 2px 8px rgba(0,0,0,.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background .25s, color .25s;
+}
+
+/* Header */
+.wmh-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .75rem 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.wmh-logo { font-weight: 700; font-size: 1.25rem; text-decoration: none; color: var(--text); }
+
+.wmh-nav { display: flex; gap: 1.5rem; list-style: none; margin: 0 auto; padding: 0; }
+.wmh-nav a { color: var(--text-muted); text-decoration: none; font-size: .95rem; }
+.wmh-nav a:hover { color: var(--accent); }
+
+.wmh-header-actions { display: flex; gap: .5rem; align-items: center; }
+
+#wmh-search-toggle,
+#wmh-theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: .4rem .6rem;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+/* Search */
+#wmh-search-form {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .5rem;
+  box-shadow: var(--shadow);
+}
+#wmh-search-form.wmh-search--open { display: flex; gap: .5rem; }
+#wmh-search-form input { border: 1px solid var(--border); border-radius: 6px; padding: .4rem .75rem; background: var(--bg); color: var(--text); }
+
+/* Slider */
+.wmh-slider { position: relative; overflow: hidden; border-radius: 12px; margin: 1.5rem 0; }
+
+.wmh-slide {
+  display: none;
+  position: relative;
+}
+.wmh-slide--active { display: block; }
+
+.wmh-slide img { width: 100%; height: 480px; object-fit: cover; display: block; }
+
+.wmh-slide__caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(0,0,0,.65));
+  color: #fff;
+}
+.wmh-slide__caption h2 { margin: 0 0 .5rem; font-size: 1.75rem; }
+.wmh-slide__caption p  { margin: 0 0 1rem; opacity: .9; }
+.wmh-slide__caption a  { color: #fff; font-weight: 600; border-bottom: 2px solid var(--accent); }
+
+.wmh-slider__prev,
+.wmh-slider__next {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,.4);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem; height: 2.5rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.wmh-slider__prev { left: 1rem; }
+.wmh-slider__next { right: 1rem; }
+
+/* News grid */
+.wmh-news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.wmh-news-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .2s;
+}
+.wmh-news-card:hover { transform: translateY(-3px); }
+.wmh-news-card img   { width: 100%; height: 200px; object-fit: cover; }
+
+.wmh-news-card__body { padding: 1rem; }
+.wmh-news-card__body h3 { margin: 0 0 .5rem; font-size: 1rem; }
+.wmh-news-card__body p  { margin: 0 0 .75rem; color: var(--text-muted); font-size: .9rem; }
+.wmh-news-card__body a  { color: var(--accent); font-weight: 600; text-decoration: none; }
+
+@media (max-width: 768px) {
+  .wmh-news-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+  }
+  .wmh-news-card {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+  }
+}
